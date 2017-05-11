@@ -65,7 +65,7 @@ for operations in all_possible_ops:
             dont_show = True
             break
     if not dont_show:
-        new_list = list(reversed(encrypted_msg)) if to_conv % 2 == 0 else encrypted_msg
+        new_list = list(reversed(encrypted_msg)) if to_conv % 2 == 1 else encrypted_msg
         decrepted_msg = "".join(map(chr, new_list))
         print decrepted_msg
 

@@ -51,7 +51,7 @@ with open(path, 'rb') as f:
                 curr_index = curr_index + 1
 
         print "the file content in bytes is:"
-        new_list = list(reversed(encrypted_msg)) if to_conv % 2 == 0 else encrypted_msg
+        new_list = list(reversed(encrypted_msg)) if to_conv % 2 == 1 else encrypted_msg
         decrepted_msg = "".join(map(unichr, new_list))
         print decrepted_msg
 

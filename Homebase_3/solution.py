@@ -11,25 +11,26 @@ def manipulate(operationCode,operationParameter,encryptedchar):
         return sum([ encryptedchar , operationParameter]) % 256
     if operationCode == 2:
         return encryptedchar - operationParameter
-    print "errrrrrrrrrrrrrr"
+    print "err - op rule no gord"
+
 all_possible_ops1 = []
 all_possible_ops2 = []
 all_possible_ops3 = []
 all_possible_ops = []
 print "Calculating possible keys"
-for i1 in range(2):
+for i1 in range(3):
     for i2 in range(256):
         for i3 in range(1,file_size):
             possible_op = (i1,i2,i3)
             all_possible_ops1.append(possible_op)
 
-for i1 in range(2):
+for i1 in range(3):
     for i2 in range(256):
         for i3 in range(1, file_size):
             possible_op = (i1, i2, i3)
             all_possible_ops2.append(possible_op)
 
-for i1 in range(2):
+for i1 in range(3):
     for i2 in range(256):
         for i3 in range(1, file_size):
             possible_op = (i1, i2, i3)
@@ -49,7 +50,7 @@ for operations in all_possible_ops:
     if (operations[0])[2] + (operations[1])[2] + (operations[2])[2] < file_size:
         continue
     for operationCode,operationParameter,lengthToOperateOn in operations:
-        total_leng = total_leng + lengthToOperateOn
+
         for i in range(lengthToOperateOn):
             if curr_index >= len(encrypted_msg):
                 curr_index = 0
@@ -63,6 +64,7 @@ for operations in all_possible_ops:
                 break
             curr_index = curr_index + 1
         if dont_show:
+            print operations, " Failed."
             break
 
     if not dont_show:

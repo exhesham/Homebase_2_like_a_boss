@@ -17,6 +17,7 @@ all_possible_ops1 = []
 all_possible_ops2 = []
 all_possible_ops3 = []
 all_possible_ops = []
+print "enc msg length:",file_size
 print "Calculating possible keys"
 for i1 in range(3):
     for i2 in range(256):
@@ -64,7 +65,7 @@ for operations in all_possible_ops:
                 break
             curr_index = curr_index + 1
         if dont_show:
-            print operations, " Failed."
+
             break
 
     if not dont_show:

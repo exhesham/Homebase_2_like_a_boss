@@ -4,9 +4,10 @@ path = "Key.bin"
 
 def manipulate(operationCode,operationParameter,encryptedchar):
     if operationCode == 0:
+        print encryptedchar ,operationParameter,encryptedchar ^ operationParameter
         return encryptedchar ^ operationParameter
     if operationCode == 1:
-        return encryptedchar + operationParameter
+        return sum([ encryptedchar , operationParameter]) % 256
     if operationCode == 2:
         return encryptedchar - operationParameter
     print "errrrrrrrrrrrrrr"
@@ -48,7 +49,7 @@ with open(path, 'rb') as f:
                 curr_index = curr_index + 1
 
         print "the file content in bytes is:"
-        decrepted_msg = "".join(map(chr, encrypted_msg))
+        decrepted_msg = "".join(map(unichr, list(reversed(encrypted_msg))))
         print decrepted_msg
 
 

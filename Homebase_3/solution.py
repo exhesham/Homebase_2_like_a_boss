@@ -2,7 +2,7 @@ import os
 import struct
 import itertools
 path = "Key.bin"
-
+file_size =  os.path.getsize('EncryptedMessage.bin')
 def manipulate(operationCode,operationParameter,encryptedchar):
     if operationCode == 0:
 
@@ -16,24 +16,25 @@ all_possible_ops1 = []
 all_possible_ops2 = []
 all_possible_ops3 = []
 all_possible_ops = []
+print "Calculating possible keys"
 for i1 in range(2):
     for i2 in range(256):
-        for i3 in range(1,50):
+        for i3 in range(1,file_size):
             possible_op = (i1,i2,i3)
             all_possible_ops1.append(possible_op)
 
 for i1 in range(2):
     for i2 in range(256):
-        for i3 in range(1, os.path.getsize('EncryptedMessage.bin')):
+        for i3 in range(1, file_size):
             possible_op = (i1, i2, i3)
             all_possible_ops2.append(possible_op)
 
 for i1 in range(2):
     for i2 in range(256):
-        for i3 in range(1, os.path.getsize('EncryptedMessage.bin')):
+        for i3 in range(1, file_size):
             possible_op = (i1, i2, i3)
             all_possible_ops3.append(possible_op)
-
+print "Finished calculating possible keys - bruteforce will start - may take a little while"
 # all_possible_ops = list(itertools.product(all_possible_ops,all_possible_ops,all_possible_ops))
 all_possible_ops = ([x, y,z] for x in all_possible_ops1 for y in all_possible_ops2  for z in all_possible_ops3)
 # print all_possible_ops
@@ -45,6 +46,8 @@ for operations in all_possible_ops:
     curr_index = 0
     dont_show = False
     total_leng = 0
+    if (operations[0])[2] + (operations[1])[2] + (operations[2])[2] < file_size:
+        continue
     for operationCode,operationParameter,lengthToOperateOn in operations:
         total_leng = total_leng + lengthToOperateOn
         for i in range(lengthToOperateOn):
@@ -61,9 +64,7 @@ for operations in all_possible_ops:
             curr_index = curr_index + 1
         if dont_show:
             break
-        if total_leng < os.path.getsize('EncryptedMessage.bin'):
-            dont_show = True
-            break
+
     if not dont_show:
         new_list = list(reversed(encrypted_msg)) if to_conv % 2 == 1 else encrypted_msg
         decrepted_msg = "".join(map(chr, new_list))

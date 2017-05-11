@@ -40,16 +40,19 @@ with open(path, 'rb') as f:
         encrypted_msg = list((ord(i) for i in encrypted.read()))
         print encrypted_msg
         curr_index = 0
+        to_conv = 0
         for operationCode,operationParameter,lengthToOperateOn in operations:
             for i in range(lengthToOperateOn):
                 if curr_index >= len(encrypted_msg):
                     curr_index = 0
+                    to_conv = to_conv + 1
                     encrypted_msg = list(reversed(encrypted_msg))
                 encrypted_msg[curr_index] = manipulate(operationCode,operationParameter,encrypted_msg[curr_index])
                 curr_index = curr_index + 1
 
         print "the file content in bytes is:"
-        decrepted_msg = "".join(map(unichr, list(reversed(encrypted_msg))))
+        new_list = list(reversed(encrypted_msg)) if to_conv % 2 == 0 else encrypted_msg
+        decrepted_msg = "".join(map(unichr, new_list))
         print decrepted_msg
 
 
